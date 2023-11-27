@@ -183,6 +183,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit_shipping_option']
         echo "Error editing shipping option: " . $conn->error;
     }
 }
+// Lägg till produkt
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_name'])) {
+    $product_name = $_POST['product_name'];
+    $product_price = $_POST['product_price'];
+
+    $insert_product_sql = "INSERT INTO products (name, price) VALUES ('$product_name', '$product_price')";
+
+    if ($conn->query($insert_product_sql) === TRUE) {
+        echo "Produkt tillagd!";
+    } else {
+        echo "Error adding product: " . $conn->error;
+    }
+}
 
 // Lista alla ordrar, ordervaror och kunder i datumordning
 $sql = "SELECT orders.*, customers.first_name, customers.last_name, customers.email
@@ -212,28 +225,38 @@ $result_discounts = $conn->query($sql_discounts);
 </head>
 <body>
     <h2>Adminsida @ GritStore</h2>
+    <div class="form-container">
+        <form class="product_form" method="post" action="">
+            <label for="product_name">Produktnamn:</label>
+            <input type="text" name="product_name" required>
 
-    <!-- Formulär för att lägga till rabattkod -->
-    <form method="post" action="">
-        <label for="discount_code">Rabattkod:</label>
-        <input type="text" name="discount_code" required>
+            <label for="product_price">Pris:</label>
+            <input type="text" name="product_price" required>
 
-        <label for="discount_amount">Rabattbelopp:</label>
-        <input type="text" name="discount_amount" required>
+            <button type="submit">Lägg till produkt</button>
+        </form>
+        <!-- Formulär för att lägga till rabattkod -->
+        <form class="discount_form" method="post" action="">
+            <label for="discount_code">Rabattkod:</label>
+            <input type="text" name="discount_code" required>
 
-        <button type="submit">Lägg till rabattkod</button>
-    </form>
+            <label for="discount_amount">Rabattbelopp:</label>
+            <input type="text" name="discount_amount" required>
 
-    <!-- Formulär för att lägga till fraktalternativ -->
-    <form method="post" action="">
-        <label for="shipping_option">Fraktalternativ:</label>
-        <input type="text" name="shipping_option" required>
+            <button type="submit">Lägg till rabattkod</button>
+        </form>
 
-        <label for="shipping_cost">Fraktkostnad:</label>
-        <input type="text" name="shipping_cost" required>
+        <!-- Formulär för att lägga till fraktalternativ -->
+        <form class="shipping_form" method="post" action="">
+            <label for="shipping_option">Fraktalternativ:</label>
+            <input type="text" name="shipping_option" required>
 
-        <button type="submit">Lägg till fraktalternativ</button>
-    </form>
+            <label for="shipping_cost">Fraktkostnad:</label>
+            <input type="text" name="shipping_cost" required>
+
+            <button type="submit">Lägg till fraktalternativ</button>
+        </form>
+    </div>
 
     <!-- Lista över fraktalternativ -->
     <h3>Fraktalternativ:</h3>

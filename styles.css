@@ -3,6 +3,7 @@ body {
     background-color: #f4f4f4;
     margin: 20px;
     text-align: center;
+    justify-content: space-around;
 }
 
 h2 {
@@ -60,3 +61,43 @@ input, select {
     padding: 8px;
 }
 
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px; 
+    margin: auto; 
+}
+
+.discount_form,
+.shipping_form,
+.product_form {
+    flex: 1;
+    padding: 20px;
+    border: 5px solid #000000; 
+}
+
+.discount_form label,
+.discount_form input,
+.shipping_form label,
+.shipping_form input,
+.product_form label,
+.product_form input {
+    margin-bottom: 10px;
+}
+
+.discount_form button,
+.shipping_form button,
+.product_form button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.discount_form button:hover,
+.shipping_form button:hover,
+.product_form button:hover {
+    background-color: #45a049;
+}
